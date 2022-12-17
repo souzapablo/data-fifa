@@ -22,5 +22,17 @@ public class UsersController : ControllerBase
         var query = new ListUsersQuery();
         return Ok(await _mediator.Send(query));
     }
+
+    [HttpGet("{userId:guid}")]
+    public async Task<IActionResult> GetUserById(Guid userId)
+    {
+        var query = new GetUserByIdQuery(userId);
+        var user = await _mediator.Send(query);
+        
+        if (user is null)
+            return NotFound($"User with Id {userId} not found");
+
+        return Ok(user);
+    }
  
 }

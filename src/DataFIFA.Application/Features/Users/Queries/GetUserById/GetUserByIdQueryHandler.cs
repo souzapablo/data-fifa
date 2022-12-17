@@ -1,12 +1,25 @@
 using DataFIFA.Application.ViewModels.Users;
+using DataFIFA.Core.Entities;
+using DataFIFA.Infrastructure.Persistence.Repositories.Interfaces;
 using MediatR;
 
 namespace DataFIFA.Application.Features.Users.Queries.GetUserById;
 
-public class GetUserByIdQueryHandler : IRequestHandler<GetUserByIdQuery, UserDetailsViewModel>
+public class GetUserByIdQueryHandler : IRequestHandler<GetUserByIdQuery, UserDetailsViewModel?>
 {
-    public Task<UserDetailsViewModel> Handle(GetUserByIdQuery request, CancellationToken cancellationToken)
+    private readonly IUserRepository _userRepository;
+
+    public GetUserByIdQueryHandler(IUserRepository userRepository)
     {
-        throw new NotImplementedException();
+        _userRepository = userRepository;
+    }
+    
+    public async Task<UserDetailsViewModel?> Handle(GetUserByIdQuery request, CancellationToken cancellationToken)
+    {
+        var user = await _userRepository.GetUserById(request.UserId);
+
+        return user is null 
+            ? null 
+            : new UserDetailsViewModel(user.Email, user.Name, new List<Career>());
     }
 }
