@@ -13,7 +13,7 @@ namespace DataFIFA.Core.Entities
             IsHome = isHome;
             Competition = competition;
 
-            Goals = new ();
+            Goals = new List<Goal>();
         }
 
         public Guid OpponentId { get; private set; }

@@ -9,7 +9,7 @@ namespace DataFIFA.Core.Entities
             UserId = userId;
             ManagerName = managerName;
 
-            Teams = new ();
+            Teams = new List<Team>();
         }
 
         public Guid UserId { get; private set; }

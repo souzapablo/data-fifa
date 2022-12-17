@@ -10,9 +10,9 @@ namespace DataFIFA.Core.Entities
             Name = name;
             Stadium = stadium;
 
-            Players = new ();
-            Matches = new ();
-            Transfers = new ();
+            Players = new List<Player>();
+            Matches = new List<Match>();
+            Transfers = new List<Transfer>();
         }
 
         public Guid CareerId { get; private set; }

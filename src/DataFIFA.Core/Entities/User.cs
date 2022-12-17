@@ -9,7 +9,6 @@ namespace DataFIFA.Core.Entities
             Name = name;
             Email = email;
             Password = password;
-   
         }
 
         public string Name { get; private set; }

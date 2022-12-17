@@ -1,4 +1,4 @@
-using DataFIFA.Application.ViewModels;
+using DataFIFA.Application.ViewModels.Users;
 using MediatR;
 
 namespace DataFIFA.Application.Features.Users.Queries.ListUsers;

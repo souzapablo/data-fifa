@@ -1,23 +1,23 @@
-using DataFIFA.Application.ViewModels;
+using DataFIFA.Application.ViewModels.Users;
 using DataFIFA.Infrastructure.Persistence;
+using DataFIFA.Infrastructure.Persistence.Repositories.Interfaces;
 using MediatR;
 
 namespace DataFIFA.Application.Features.Users.Queries.ListUsers;
 
 public class ListUsersQueryHandler : IRequestHandler<ListUsersQuery, List<UserViewModel>>
 {
-    private readonly DataFIFADbContext _dbContext;
+    private readonly IUserRepository _userRepository;
 
-    public ListUsersQueryHandler(DataFIFADbContext dbContext)
+    public ListUsersQueryHandler(IUserRepository userRepository)
     {
-        _dbContext = dbContext;
+        _userRepository = userRepository;
     }
 
-    public Task<List<UserViewModel>> Handle(ListUsersQuery request, CancellationToken cancellationToken)
+    public async Task<List<UserViewModel>> Handle(ListUsersQuery request, CancellationToken cancellationToken)
     {
-        var users = _dbContext.Users;
-        var usersVm = users.Select(x => new UserViewModel
-            (x.Name, x.Email)).ToList();
-        return Task.FromResult(usersVm);
+        var users = await _userRepository.ListAll();
+        
+        return users.Select(x => new UserViewModel(x.Name, x.Email)).ToList();
     }
 }

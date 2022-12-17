@@ -2,17 +2,17 @@ namespace DataFIFA.Core.Enums
 {
     public enum Position
     {
-        GOL,
-        ZAG,
-        LD,
-        LE,
-        VOL,
-        MC,
-        ME,
-        MD,
-        MEI, 
-        ATA,
-        PE,
-        PD
+        Gol,
+        Zag,
+        Ld,
+        Le,
+        Vol,
+        Mc,
+        Me,
+        Md,
+        Mei, 
+        Ata,
+        Pe,
+        Pd
     }
 }
