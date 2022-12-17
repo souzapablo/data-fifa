@@ -1,5 +1,7 @@
+using DataFIFA.Application.Features.Users.Command;
 using DataFIFA.Application.Features.Users.Queries.GetUserById;
 using DataFIFA.Application.Features.Users.Queries.ListUsers;
+using DataFIFA.Application.InputModels.Users;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
@@ -33,6 +35,15 @@ public class UsersController : ControllerBase
             return NotFound($"User with Id {userId} not found");
 
         return Ok(user);
+    }
+
+    [HttpPost]
+    public async Task<IActionResult> AddNewUser(AddNewUserInputModel input)
+    {
+        var command = new AddNewUserCommand(input.Name, input.Email, input.Password);
+        var id = await _mediator.Send(command);
+
+        return CreatedAtAction(nameof(GetUserById), new { UserId = id }, command);
     }
  
 }

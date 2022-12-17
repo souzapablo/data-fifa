@@ -1,5 +1,4 @@
 using DataFIFA.Application.ViewModels.Users;
-using DataFIFA.Infrastructure.Persistence;
 using DataFIFA.Infrastructure.Persistence.Repositories.Interfaces;
 using MediatR;
 
@@ -18,6 +17,6 @@ public class ListUsersQueryHandler : IRequestHandler<ListUsersQuery, List<UserVi
     {
         var users = await _userRepository.ListAll();
         
-        return users.Select(x => new UserViewModel(x.Name, x.Email)).ToList();
+        return users.Select(x => new UserViewModel(x.Id, x.Name, x.Email)).ToList();
     }
 }

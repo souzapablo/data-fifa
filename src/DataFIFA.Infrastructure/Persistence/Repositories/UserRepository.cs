@@ -13,15 +13,28 @@ public class UserRepository : IUserRepository
         _dbContext = dbContext;
     }
     
-    public Task<List<User>> ListAll() 
+    public async Task<List<User>> ListAll() 
     {
-        return _dbContext.Users
+        return await _dbContext.Users
             .ToListAsync();
     }
 
-    public Task<User?> GetUserById(Guid id)
+    public async Task<User?> GetUserById(Guid id)
     {
-        return _dbContext.Users
+        return await _dbContext.Users
             .SingleOrDefaultAsync(u => u.Id == id);
+    }
+
+    public async Task AddNewUser(User user)
+    {
+        await _dbContext.Users.AddAsync(user);
+        await _dbContext.SaveChangesAsync();
+    }
+
+    public async Task<bool> IsEmailRegistered(string email)
+    {
+        var user = await _dbContext.Users.SingleOrDefaultAsync(x => x.Email == email);
+
+        return user is not null;
     }
 }

@@ -20,6 +20,6 @@ public class GetUserByIdQueryHandler : IRequestHandler<GetUserByIdQuery, UserDet
 
         return user is null 
             ? null 
-            : new UserDetailsViewModel(user.Email, user.Name, new List<Career>());
+            : new UserDetailsViewModel(user.Id, user.Email, user.Name, new List<Career>());
     }
 }
