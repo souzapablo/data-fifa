@@ -16,7 +16,7 @@ public class GetCareerByIdQueryHandler : IRequestHandler<GetCareerByIdQuery, Car
     
     public async Task<CareerDetailsViewModel?> Handle(GetCareerByIdQuery request, CancellationToken cancellationToken)
     {
-        var career = await _careerRepository.GetByIdAsync(request.CareerCareerId);
+        var career = await _careerRepository.GetByIdAsync(request.CareerCareerId, x => x.Teams);
 
         return career is null ?
             null :
@@ -25,6 +25,6 @@ public class GetCareerByIdQueryHandler : IRequestHandler<GetCareerByIdQuery, Car
                 career.UserId, 
                 career.ManagerName, 
                 career.Teams.MinBy(t => t.LastUpdate)?.Name, 
-                new List<Team>());
+                career.Teams);
     }
 }

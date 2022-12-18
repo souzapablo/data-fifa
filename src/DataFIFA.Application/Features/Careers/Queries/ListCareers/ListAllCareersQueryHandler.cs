@@ -18,7 +18,7 @@ public class ListAllCareersQueryHandler : IRequestHandler<ListAllCareersQuery, L
     
     public async Task<List<CareerViewModel>> Handle(ListAllCareersQuery request, CancellationToken cancellationToken)
     {
-        var careers = await _careerRepository.ListAllAsync();
+        var careers = await _careerRepository.ListAllAsync(x => x.Teams);
 
         return careers.Select(x => new CareerViewModel(
             x.Id, 
