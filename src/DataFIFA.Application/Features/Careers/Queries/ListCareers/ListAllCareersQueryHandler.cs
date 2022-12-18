@@ -1,10 +1,9 @@
 using DataFIFA.Application.ViewModels.Careers;
-using DataFIFA.Core.Entities;
 using DataFIFA.Core.Helpers.Interfaces;
 using DataFIFA.Infrastructure.Persistence.Repositories.Interfaces;
 using MediatR;
 
-namespace DataFIFA.Application.Features.Careers.Queries.ListAll;
+namespace DataFIFA.Application.Features.Careers.Queries.ListCareers;
 
 public class ListAllCareersQueryHandler : IRequestHandler<ListAllCareersQuery, List<CareerViewModel>>
 {
@@ -21,6 +20,11 @@ public class ListAllCareersQueryHandler : IRequestHandler<ListAllCareersQuery, L
     {
         var careers = await _careerRepository.ListAllAsync();
 
-        return careers.Select(x => new CareerViewModel(x.Id, x.UserId, x.ManagerName, new List<Team>())).ToList();
+        return careers.Select(x => new CareerViewModel(
+            x.Id, 
+            x.UserId, 
+            x.ManagerName, 
+            x.LastUpdate, 
+            x.Teams.MinBy(t => t.LastUpdate)?.Name)).ToList();
     }
 }

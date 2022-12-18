@@ -1,3 +1,4 @@
+using DataFIFA.Application.ViewModels.Careers;
 using DataFIFA.Application.ViewModels.Users;
 using DataFIFA.Core.Entities;
 using DataFIFA.Infrastructure.Persistence.Repositories.Interfaces;
@@ -16,10 +17,20 @@ public class GetUserByIdQueryHandler : IRequestHandler<GetUserByIdQuery, UserDet
     
     public async Task<UserDetailsViewModel?> Handle(GetUserByIdQuery request, CancellationToken cancellationToken)
     {
-        var user = await _userRepository.GetByIdAsync(request.UserId);
+        var user = await _userRepository.GetByIdAsync(request.UserId, x => x.Careers);
 
         return user is null 
             ? null 
-            : new UserDetailsViewModel(user.Id, user.Email, user.Name, new List<Career>());
+            : new UserDetailsViewModel(
+                user.Id, 
+                user.Email, 
+                user.Name, 
+                user.Careers.Select(x => 
+                    new CareerViewModel(
+                        x.Id, 
+                        x.UserId, 
+                        x.ManagerName, 
+                        x.LastUpdate, 
+                        x.Teams.MinBy(t => t.LastUpdate)?.Name)).ToList());
     }
 }

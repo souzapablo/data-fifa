@@ -20,6 +20,11 @@ public class GetCareerByIdQueryHandler : IRequestHandler<GetCareerByIdQuery, Car
 
         return career is null ?
             null :
-            new CareerDetailsViewModel(career.Id, career.UserId, career.ManagerName, new List<Team>());
+            new CareerDetailsViewModel(
+                career.Id, 
+                career.UserId, 
+                career.ManagerName, 
+                career.Teams.MinBy(t => t.LastUpdate)?.Name, 
+                new List<Team>());
     }
 }

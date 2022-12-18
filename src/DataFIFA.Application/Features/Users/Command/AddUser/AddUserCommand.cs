@@ -3,7 +3,7 @@ using MediatR;
 
 namespace DataFIFA.Application.Features.Users.Command.AddUser;
 
-public class AddUserCommand : IRequest<UserDetailsViewModel?>
+public class AddUserCommand : IRequest<AddUserViewModel?>
 {
     public AddUserCommand(string name, string email, string password)
     {

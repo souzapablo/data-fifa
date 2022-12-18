@@ -3,7 +3,7 @@ using MediatR;
 
 namespace DataFIFA.Application.Features.Careers.Commands.AddCareer;
 
-public class AddCareerCommand : IRequest<CareerDetailsViewModel>
+public class AddCareerCommand : IRequest<AddCareerViewModel>
 {
     public AddCareerCommand(Guid userId, string managerName)
     {

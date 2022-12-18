@@ -22,9 +22,7 @@ public class BaseController : ControllerBase
             case null:
                 return Response(HttpStatusCode.NotFound, result);
             default:
-            {
                 return Response(HttpStatusCode.OK, result);
-            }
         }
     }
 

@@ -1,7 +1,7 @@
 using DataFIFA.API.Controllers.Shared;
 using DataFIFA.Application.Features.Careers.Commands.AddCareer;
 using DataFIFA.Application.Features.Careers.Queries.GetById;
-using DataFIFA.Application.Features.Careers.Queries.ListAll;
+using DataFIFA.Application.Features.Careers.Queries.ListCareers;
 using DataFIFA.Application.InputModels.Careers;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
