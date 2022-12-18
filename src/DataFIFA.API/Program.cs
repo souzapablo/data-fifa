@@ -1,4 +1,6 @@
 using DataFIFA.Application.Features.Users.Queries.ListUsers;
+using DataFIFA.Core.Helpers;
+using DataFIFA.Core.Helpers.Interfaces;
 using DataFIFA.Infrastructure.Persistence;
 using DataFIFA.Infrastructure.Persistence.Repositories;
 using DataFIFA.Infrastructure.Persistence.Repositories.Interfaces;
@@ -16,7 +18,7 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddMediatR(typeof(ListUsersQuery));
 builder.Services.AddScoped<IUserRepository, UserRepository>();
-
+builder.Services.AddScoped<IMessageHandler, MessageHandler>();
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.

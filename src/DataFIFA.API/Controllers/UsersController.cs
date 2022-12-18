@@ -1,4 +1,6 @@
+using DataFIFA.API.Controllers.Shared;
 using DataFIFA.Application.Features.Users.Command;
+using DataFIFA.Application.Features.Users.Command.AddNewUser;
 using DataFIFA.Application.Features.Users.Queries.GetUserById;
 using DataFIFA.Application.Features.Users.Queries.ListUsers;
 using DataFIFA.Application.InputModels.Users;
@@ -9,7 +11,7 @@ namespace DataFIFA.API.Controllers;
 
 [ApiController]
 [Route("/api/v1/users")]
-public class UsersController : ControllerBase
+public class UsersController : BaseController
 {
     private readonly IMediator _mediator;
 
@@ -22,7 +24,7 @@ public class UsersController : ControllerBase
     public async Task<IActionResult> ListUsers()
     {
         var query = new ListUsersQuery();
-        return Ok(await _mediator.Send(query));
+        return CustomResponse(await _mediator.Send(query));
     }
 
     [HttpGet("{userId:guid}")]
@@ -31,10 +33,7 @@ public class UsersController : ControllerBase
         var query = new GetUserByIdQuery(userId);
         var user = await _mediator.Send(query);
         
-        if (user is null)
-            return NotFound($"User with Id {userId} not found");
-
-        return Ok(user);
+        return CustomResponse(user);
     }
 
     [HttpPost]
@@ -43,7 +42,7 @@ public class UsersController : ControllerBase
         var command = new AddNewUserCommand(input.Name, input.Email, input.Password);
         var id = await _mediator.Send(command);
 
-        return CreatedAtAction(nameof(GetUserById), new { UserId = id }, command);
+        return CustomResponse(id);
     }
  
 }

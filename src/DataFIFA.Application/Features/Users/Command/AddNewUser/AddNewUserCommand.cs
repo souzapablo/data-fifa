@@ -1,8 +1,8 @@
 using MediatR;
 
-namespace DataFIFA.Application.Features.Users.Command;
+namespace DataFIFA.Application.Features.Users.Command.AddNewUser;
 
-public class AddNewUserCommand : IRequest<Guid>
+public class AddNewUserCommand : IRequest<Guid?>
 {
     public AddNewUserCommand(string name, string email, string password)
     {
