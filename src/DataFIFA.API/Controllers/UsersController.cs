@@ -1,5 +1,4 @@
 using DataFIFA.API.Controllers.Shared;
-using DataFIFA.Application.Features.Users.Command;
 using DataFIFA.Application.Features.Users.Command.AddNewUser;
 using DataFIFA.Application.Features.Users.Queries.GetUserById;
 using DataFIFA.Application.Features.Users.Queries.ListUsers;
