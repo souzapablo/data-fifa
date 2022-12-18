@@ -37,7 +37,7 @@ public class AddNewUserCommandHandlerTests
         await commandHandler.Handle(command, new CancellationToken());
         
         // Assert
-        _userRepositoryMock.Verify(x => x.AddNewUser(It.IsAny<User>()), Times.Once);
+        _userRepositoryMock.Verify(x => x.AddAsync(It.IsAny<User>()), Times.Once);
     }
     
     [Theory(DisplayName = "Given an already registered e-mail throw exception")]
@@ -56,7 +56,7 @@ public class AddNewUserCommandHandlerTests
         // Assert
         result.Should().ThrowAsync<EmailAlreadyRegisteredException>()
             .WithMessage("E-mail already registered.");
-        _userRepositoryMock.Verify(x => x.AddNewUser(It.IsAny<User>()), Times.Never);
+        _userRepositoryMock.Verify(x => x.AddAsync(It.IsAny<User>()), Times.Never);
     }
 
     private AddNewUserCommandHandler GenerateCommandHandler => new (_userRepositoryMock.Object, _messageHandler);

@@ -32,7 +32,7 @@ public class AddNewUserCommandHandler : IRequestHandler<AddNewUserCommand, UserD
         
         var user = new User(request.Name, request.Email, request.Password);
 
-        await _userRepository.AddNewUser(user);
+        await _userRepository.AddAsync(user);
 
         return new UserDetailsViewModel(user.Id, user.Name, user.Email, new List<Career>());
     }

@@ -15,7 +15,7 @@ public class ListUsersQueryHandler : IRequestHandler<ListUsersQuery, List<UserVi
 
     public async Task<List<UserViewModel>> Handle(ListUsersQuery request, CancellationToken cancellationToken)
     {
-        var users = await _userRepository.ListAll();
+        var users = await _userRepository.ListAllAsync();
         
         return users.Select(x => new UserViewModel(x.Id, x.Name, x.Email)).ToList();
     }

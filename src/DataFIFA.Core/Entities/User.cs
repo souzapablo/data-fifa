@@ -9,10 +9,13 @@ namespace DataFIFA.Core.Entities
             Name = name;
             Email = email;
             Password = password;
+
+            Careers = new List<Career>();
         }
 
         public string Name { get; private set; }
         public string Email { get; private set; }
         public string Password { get; private set; }
+        public List<Career> Careers { get; private set; }
     }
 }

@@ -4,16 +4,11 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace DataFIFA.Infrastructure.Persistence.Configurations;
 
-public class UserConfigurations : IEntityTypeConfiguration<User>
+public class CareerConfigurations : IEntityTypeConfiguration<Career>
 {
-    public void Configure(EntityTypeBuilder<User> builder)
+    public void Configure(EntityTypeBuilder<Career> builder)
     {
         builder.HasKey(u => u.Id);
-
-        builder.HasMany
-            (u => u.Careers)
-            .WithOne(c => c.User)
-            .HasForeignKey(c => c.UserId);
 
         builder.Property(u => u.CreatedAt)
             .HasDefaultValue(DateTime.Now);

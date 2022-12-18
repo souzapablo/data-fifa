@@ -13,6 +13,7 @@ namespace DataFIFA.Core.Entities
         }
 
         public Guid UserId { get; private set; }
+        public User User { get; private set; }
         public string ManagerName { get; private set; }
         public List<Team> Teams { get; private set; }
     }
