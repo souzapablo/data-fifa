@@ -1,7 +1,7 @@
 using System;
 using System.Threading;
 using System.Threading.Tasks;
-using DataFIFA.Application.Features.Users.Command.AddNewUser;
+using DataFIFA.Application.Features.Users.Command.AddUser;
 using DataFIFA.Core.Entities;
 using DataFIFA.Core.Exceptions;
 using DataFIFA.Core.Helpers;
@@ -12,12 +12,12 @@ using Xunit;
 
 namespace DataFIFA.UnitTests.Features.Users.Commands;
 
-public class AddNewUserCommandHandlerTests
+public class AddUserCommandHandlerTests
 {
     private readonly Mock<IUserRepository> _userRepositoryMock;
     private readonly MessageHandler _messageHandler;
     
-    public AddNewUserCommandHandlerTests()
+    public AddUserCommandHandlerTests()
     {
         _userRepositoryMock = new Mock<IUserRepository>();
         _messageHandler = new MessageHandler();
@@ -29,7 +29,7 @@ public class AddNewUserCommandHandlerTests
     {
         // Arrange
         var commandHandler = GenerateCommandHandler;
-        var command = new AddNewUserCommand(name, email, password);
+        var command = new AddUserCommand(name, email, password);
         _userRepositoryMock.Setup(x => x.IsEmailRegistered(It.IsAny<string>()))
             .ReturnsAsync(false);
         
@@ -46,7 +46,7 @@ public class AddNewUserCommandHandlerTests
     {
         // Arrange
         var commandHandler = GenerateCommandHandler;
-        var command = new AddNewUserCommand(name, email, password);
+        var command = new AddUserCommand(name, email, password);
         _userRepositoryMock.Setup(x => x.IsEmailRegistered(It.IsAny<string>()))
             .ReturnsAsync(true);
         
@@ -59,5 +59,5 @@ public class AddNewUserCommandHandlerTests
         _userRepositoryMock.Verify(x => x.AddAsync(It.IsAny<User>()), Times.Never);
     }
 
-    private AddNewUserCommandHandler GenerateCommandHandler => new (_userRepositoryMock.Object, _messageHandler);
+    private AddUserCommandHandler GenerateCommandHandler => new (_userRepositoryMock.Object, _messageHandler);
 }

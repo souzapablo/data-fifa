@@ -7,19 +7,19 @@ using DataFIFA.Core.Helpers.Interfaces;
 using DataFIFA.Infrastructure.Persistence.Repositories.Interfaces;
 using MediatR;
 
-namespace DataFIFA.Application.Features.Users.Command.AddNewUser;
+namespace DataFIFA.Application.Features.Users.Command.AddUser;
 
-public class AddNewUserCommandHandler : IRequestHandler<AddNewUserCommand, UserDetailsViewModel?>
+public class AddUserCommandHandler : IRequestHandler<AddUserCommand, UserDetailsViewModel?>
 {
     private readonly IUserRepository _userRepository;
     private readonly IMessageHandler _messageHandler;
-    public AddNewUserCommandHandler(IUserRepository userRepository, IMessageHandler messageHandler)
+    public AddUserCommandHandler(IUserRepository userRepository, IMessageHandler messageHandler)
     {
         _userRepository = userRepository;
         _messageHandler = messageHandler;
     }
     
-    public async Task<UserDetailsViewModel?> Handle(AddNewUserCommand request, CancellationToken cancellationToken)
+    public async Task<UserDetailsViewModel?> Handle(AddUserCommand request, CancellationToken cancellationToken)
     {
         var isEmailRegistered = await _userRepository.IsEmailRegistered(request.Email);
 

@@ -1,11 +1,11 @@
 using DataFIFA.Application.ViewModels.Users;
 using MediatR;
 
-namespace DataFIFA.Application.Features.Users.Command.AddNewUser;
+namespace DataFIFA.Application.Features.Users.Command.AddUser;
 
-public class AddNewUserCommand : IRequest<UserDetailsViewModel?>
+public class AddUserCommand : IRequest<UserDetailsViewModel?>
 {
-    public AddNewUserCommand(string name, string email, string password)
+    public AddUserCommand(string name, string email, string password)
     {
         Name = name;
         Email = email;

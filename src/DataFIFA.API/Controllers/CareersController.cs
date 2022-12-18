@@ -1,5 +1,7 @@
 using DataFIFA.API.Controllers.Shared;
+using DataFIFA.Application.Features.Careers.Commands.AddCareer;
 using DataFIFA.Application.Features.Careers.Queries.ListAll;
+using DataFIFA.Application.InputModels.Careers;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
@@ -17,11 +19,20 @@ public class CareersController : BaseController
     }
 
     [HttpGet]
-    public async Task<IActionResult> ListAll()
+    public async Task<IActionResult> ListAllAsync()
     {
         var query = new ListAllCareersQuery();
         var result = await _mediator.Send(query);
         
+        return CustomResponse(result);
+    }
+
+    [HttpPost]
+    public async Task<IActionResult> AddCareerAsync([FromBody] AddCareerInputModel input)
+    {
+        var command = new AddCareerCommand(input.UserId, input.ManagerName);
+        var result = await _mediator.Send(command);
+
         return CustomResponse(result);
     }
 }

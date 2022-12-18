@@ -1,5 +1,5 @@
 using DataFIFA.API.Controllers.Shared;
-using DataFIFA.Application.Features.Users.Command.AddNewUser;
+using DataFIFA.Application.Features.Users.Command.AddUser;
 using DataFIFA.Application.Features.Users.Queries.GetUserById;
 using DataFIFA.Application.Features.Users.Queries.ListUsers;
 using DataFIFA.Application.InputModels.Users;
@@ -20,14 +20,14 @@ public class UsersController : BaseController
     }
     
     [HttpGet]
-    public async Task<IActionResult> ListUsers()
+    public async Task<IActionResult> ListUsersAsync()
     {
         var query = new ListUsersQuery();
         return CustomResponse(await _mediator.Send(query));
     }
 
     [HttpGet("{userId:guid}")]
-    public async Task<IActionResult> GetUserById(Guid userId)
+    public async Task<IActionResult> GetUserByIdAsync(Guid userId)
     {
         var query = new GetUserByIdQuery(userId);
         var user = await _mediator.Send(query);
@@ -36,9 +36,9 @@ public class UsersController : BaseController
     }
 
     [HttpPost]
-    public async Task<IActionResult> AddNewUser(AddNewUserInputModel input)
+    public async Task<IActionResult> AddNewUserAsync(AddNewUserInputModel input)
     {
-        var command = new AddNewUserCommand(input.Name, input.Email, input.Password);
+        var command = new AddUserCommand(input.Name, input.Email, input.Password);
         var newUser = await _mediator.Send(command);
 
         return CustomResponse(newUser);
