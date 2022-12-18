@@ -2,24 +2,29 @@ using System;
 using System.Threading;
 using System.Threading.Tasks;
 using DataFIFA.Application.Features.Users.Command;
+using DataFIFA.Application.Features.Users.Command.AddNewUser;
 using DataFIFA.Core.Entities;
 using DataFIFA.Core.Exceptions;
+using DataFIFA.Core.Helpers;
+using DataFIFA.Core.Helpers.Interfaces;
 using DataFIFA.Infrastructure.Persistence.Repositories.Interfaces;
 using FluentAssertions;
 using Moq;
 using Xunit;
 
-namespace DataFIFA.UnitTests.Commands;
+namespace DataFIFA.UnitTests.Features.Users.Commands;
 
 public class AddNewUserCommandHandlerTests
 {
     private readonly Mock<IUserRepository> _userRepositoryMock;
+    private readonly MessageHandler _messageHandler;
     private readonly AddNewUserCommandHandler _commandHandler;
 
     public AddNewUserCommandHandlerTests()
     {
         _userRepositoryMock = new Mock<IUserRepository>();
-        _commandHandler = new AddNewUserCommandHandler(_userRepositoryMock.Object);
+        _messageHandler = new MessageHandler();
+        _commandHandler = new AddNewUserCommandHandler(_userRepositoryMock.Object, _messageHandler);
     }
     
     [Fact]

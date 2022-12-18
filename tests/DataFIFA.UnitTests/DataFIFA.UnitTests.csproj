@@ -27,4 +27,8 @@
     <ProjectReference Include="..\..\src\DataFIFA.Infrastructure\DataFIFA.Infrastructure.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Features" />
+  </ItemGroup>
+
 </Project>
