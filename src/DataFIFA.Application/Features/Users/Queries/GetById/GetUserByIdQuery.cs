@@ -1,7 +1,7 @@
 using DataFIFA.Application.ViewModels.Users;
 using MediatR;
 
-namespace DataFIFA.Application.Features.Users.Queries.GetUserById;
+namespace DataFIFA.Application.Features.Users.Queries.GetById;
 
 public class GetUserByIdQuery : IRequest<UserDetailsViewModel?>
 {

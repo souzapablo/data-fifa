@@ -1,6 +1,6 @@
 using DataFIFA.API.Controllers.Shared;
 using DataFIFA.Application.Features.Users.Command.AddUser;
-using DataFIFA.Application.Features.Users.Queries.GetUserById;
+using DataFIFA.Application.Features.Users.Queries.GetById;
 using DataFIFA.Application.Features.Users.Queries.ListUsers;
 using DataFIFA.Application.InputModels.Users;
 using MediatR;

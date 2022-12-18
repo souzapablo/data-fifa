@@ -3,7 +3,7 @@ using DataFIFA.Core.Entities;
 using DataFIFA.Infrastructure.Persistence.Repositories.Interfaces;
 using MediatR;
 
-namespace DataFIFA.Application.Features.Users.Queries.GetUserById;
+namespace DataFIFA.Application.Features.Users.Queries.GetById;
 
 public class GetUserByIdQueryHandler : IRequestHandler<GetUserByIdQuery, UserDetailsViewModel?>
 {
