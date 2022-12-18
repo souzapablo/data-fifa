@@ -8,15 +8,19 @@ public class CareerConfigurations : IEntityTypeConfiguration<Career>
 {
     public void Configure(EntityTypeBuilder<Career> builder)
     {
-        builder.HasKey(u => u.Id);
+        builder.HasKey(c => c.Id);
 
-        builder.Property(u => u.CreatedAt)
+        builder.HasMany(c => c.Teams)
+            .WithOne()
+            .HasForeignKey(t => t.CareerId);
+        
+        builder.Property(c => c.CreatedAt)
             .HasDefaultValue(DateTime.Now);
         
-        builder.Property(u => u.LastUpdate)
+        builder.Property(c => c.LastUpdate)
             .HasDefaultValue(DateTime.Now);
 
-        builder.Property(u => u.IsActive)
+        builder.Property(c => c.IsActive)
             .HasDefaultValue(true);
     }
 }

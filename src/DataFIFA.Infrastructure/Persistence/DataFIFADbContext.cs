@@ -12,6 +12,7 @@ public class DataFifaDbContext : DbContext
     }
     public DbSet<User> Users { get; set; }
     public DbSet<Career> Careers { get; set; }
+    public DbSet<Team> Teams { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {

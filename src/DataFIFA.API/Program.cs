@@ -19,6 +19,7 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddMediatR(typeof(ListUsersQuery));
 builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddScoped<ICareerRepository, CareerRepository>();
+builder.Services.AddScoped<ITeamRepository, TeamRepository>();
 builder.Services.AddScoped<IMessageHandler, MessageHandler>();
 var app = builder.Build();
 
