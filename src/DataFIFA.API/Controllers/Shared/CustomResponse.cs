@@ -5,9 +5,9 @@ namespace DataFIFA.API.Controllers.Shared;
 public class CustomResponse
 {
     public HttpStatusCode StatusCode { get; private set; }
-    private bool Success { get; set; }
-    private object Data { get; set; } = null!;
-    private IEnumerable<string> Errors { get; set; } = null!;
+    public bool Success { get; private set; }
+    public object Data { get; private set; } = null!;
+    public IEnumerable<string> Errors { get; private set; } = null!;
 
     public CustomResponse(HttpStatusCode statusCode, bool success)
     {

@@ -39,9 +39,9 @@ public class UsersController : BaseController
     public async Task<IActionResult> AddNewUser(AddNewUserInputModel input)
     {
         var command = new AddNewUserCommand(input.Name, input.Email, input.Password);
-        var id = await _mediator.Send(command);
+        var newUser = await _mediator.Send(command);
 
-        return CustomResponse(id);
+        return CustomResponse(newUser);
     }
  
 }

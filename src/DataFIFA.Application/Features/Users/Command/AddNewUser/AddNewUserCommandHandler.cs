@@ -1,4 +1,5 @@
 using System.Net;
+using DataFIFA.Application.ViewModels.Users;
 using DataFIFA.Core.Entities;
 using DataFIFA.Core.Exceptions;
 using DataFIFA.Core.Helpers;
@@ -8,7 +9,7 @@ using MediatR;
 
 namespace DataFIFA.Application.Features.Users.Command.AddNewUser;
 
-public class AddNewUserCommandHandler : IRequestHandler<AddNewUserCommand, Guid?>
+public class AddNewUserCommandHandler : IRequestHandler<AddNewUserCommand, UserDetailsViewModel?>
 {
     private readonly IUserRepository _userRepository;
     private readonly IMessageHandler _messageHandler;
@@ -18,7 +19,7 @@ public class AddNewUserCommandHandler : IRequestHandler<AddNewUserCommand, Guid?
         _messageHandler = messageHandler;
     }
     
-    public async Task<Guid?> Handle(AddNewUserCommand request, CancellationToken cancellationToken)
+    public async Task<UserDetailsViewModel?> Handle(AddNewUserCommand request, CancellationToken cancellationToken)
     {
         var isEmailRegistered = await _userRepository.IsEmailRegistered(request.Email);
 
@@ -33,6 +34,6 @@ public class AddNewUserCommandHandler : IRequestHandler<AddNewUserCommand, Guid?
 
         await _userRepository.AddNewUser(user);
 
-        return user.Id;
+        return new UserDetailsViewModel(user.Id, user.Name, user.Email, new List<Career>());
     }
 }

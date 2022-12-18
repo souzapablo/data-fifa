@@ -21,7 +21,6 @@ public class BaseController : ControllerBase
 
     private new JsonResult Response(HttpStatusCode statusCode, object? data, string? errorMessage)
     {
-
         CustomResponse result;
         if (string.IsNullOrWhiteSpace(errorMessage))
         {
