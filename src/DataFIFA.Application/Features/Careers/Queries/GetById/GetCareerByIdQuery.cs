@@ -7,7 +7,7 @@ public class GetCareerByIdQuery : IRequest<CareerDetailsViewModel?>
 {
     public GetCareerByIdQuery(Guid careerId)
     {
-        CareerCareerId = careerId;
+        CareerId = careerId;
     }
-    public Guid CareerCareerId { get; private set; }
+    public Guid CareerId { get; private set; }
 }
