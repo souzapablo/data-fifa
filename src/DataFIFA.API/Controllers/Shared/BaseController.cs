@@ -12,11 +12,20 @@ public class BaseController : ControllerBase
     {
         var messageHandler = HttpContext.RequestServices.GetService<IMessageHandler>();
 
-        if (result is not null || messageHandler?.HasMessage != true) return Response(HttpStatusCode.OK, result);
-        
-        var error = messageHandler.Messages.First();
-        return Response(error.Status, error.Message);
-
+        switch (result)
+        {
+            case null when messageHandler?.HasMessage == true:
+            {
+                var error = messageHandler.Messages.First();
+                return Response(error.Status, error.Message);
+            }
+            case null:
+                return Response(HttpStatusCode.NotFound, result);
+            default:
+            {
+                return Response(HttpStatusCode.OK, result);
+            }
+        }
     }
 
     private new JsonResult Response(HttpStatusCode statusCode, object? data, string? errorMessage)
