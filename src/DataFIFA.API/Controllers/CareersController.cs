@@ -20,7 +20,7 @@ public class CareersController : BaseController
     }
 
     [HttpGet]
-    public async Task<IActionResult> ListAllAsync()
+    public async Task<IActionResult> ListCareersAsync()
     {
         var query = new ListAllCareersQuery();
         var result = await _mediator.Send(query);
@@ -29,7 +29,7 @@ public class CareersController : BaseController
     }
 
     [HttpGet("{careerId:guid}")]
-    public async Task<IActionResult> GetCareerByIdAsnyc(Guid careerId)
+    public async Task<IActionResult> GetCareerByIdAsync(Guid careerId)
     {
         var query = new GetCareerByIdQuery(careerId);
         var result = await _mediator.Send(query);
