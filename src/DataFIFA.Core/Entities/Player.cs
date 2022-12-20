@@ -16,8 +16,9 @@ namespace DataFIFA.Core.Entities
             Position = position;
             Age = age;
         }
-
+    
         public Guid TeamId { get; private set; }
+        public Team Team { get; private set; }
         public string Name { get; private set; }
         public int Overall { get; private set; }
         public int ShirtNumber { get; private set; }

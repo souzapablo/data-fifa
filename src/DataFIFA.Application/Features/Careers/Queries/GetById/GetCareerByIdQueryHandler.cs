@@ -34,7 +34,6 @@ public class GetCareerByIdQueryHandler : IRequestHandler<GetCareerByIdQuery, Car
                 career.Id, 
                 career.UserId, 
                 career.ManagerName, 
-                career.CurrentTeam?.Name, 
-                career.Teams);
+                career.CurrentTeam?.Name);
     }
 }

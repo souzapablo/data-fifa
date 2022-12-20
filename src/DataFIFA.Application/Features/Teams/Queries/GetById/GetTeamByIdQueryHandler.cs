@@ -1,4 +1,5 @@
 using System.Net;
+using DataFIFA.Application.ViewModels.Players;
 using DataFIFA.Application.ViewModels.Teams;
 using DataFIFA.Core.Exceptions;
 using DataFIFA.Core.Helpers;
@@ -21,7 +22,7 @@ public class GetTeamByIdQueryHandler : IRequestHandler<GetTeamByIdQuery, TeamDet
     
     public async Task<TeamDetailsVIewModel?> Handle(GetTeamByIdQuery request, CancellationToken cancellationToken)
     {
-        var team = await _teamRepository.GetByIdAsync(request.TeamId);
+        var team = await _teamRepository.GetByIdAsync(request.TeamId, x => x.Players);
 
         if (team is null)
         {
@@ -34,6 +35,14 @@ public class GetTeamByIdQueryHandler : IRequestHandler<GetTeamByIdQuery, TeamDet
             team.Id,
             team.CareerId,
             team.Name,
-            team.Stadium);
+            team.Stadium,
+            team.Players.Select(x => new PlayerViewModel(
+                x.Id,
+                x.TeamId,
+                x.Name,
+                x.Overall,
+                x.Age,
+                x.ShirtNumber,
+                x.Position.ToString())).ToList());
     }
 }

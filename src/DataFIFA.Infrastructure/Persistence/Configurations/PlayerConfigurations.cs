@@ -4,16 +4,12 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace DataFIFA.Infrastructure.Persistence.Configurations;
 
-public class TeamConfigurations : IEntityTypeConfiguration<Team>
+public class PlayerConfigurations : IEntityTypeConfiguration<Player>
 {
-    public void Configure(EntityTypeBuilder<Team> builder)
+    public void Configure(EntityTypeBuilder<Player> builder)
     {
-        builder.HasKey(t => t.Id);
+        builder.HasKey(p => p.Id);
 
-        builder.HasMany(t => t.Players)
-            .WithOne(p => p.Team)
-            .HasForeignKey(t => t.TeamId);
-        
         builder.Property(t => t.CreatedAt)
             .HasDefaultValue(DateTime.Now);
         
