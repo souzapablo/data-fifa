@@ -13,6 +13,10 @@ public class CareerConfigurations : IEntityTypeConfiguration<Career>
         builder.HasMany(c => c.Teams)
             .WithOne()
             .HasForeignKey(t => t.CareerId);
+
+        builder.HasOne(c => c.CurrentTeam)
+            .WithOne()
+            .HasForeignKey<Career>(c => c.CurrentTeamId);
         
         builder.Property(c => c.CreatedAt)
             .HasDefaultValue(DateTime.Now);

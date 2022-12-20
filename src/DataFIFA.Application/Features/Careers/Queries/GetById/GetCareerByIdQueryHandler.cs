@@ -1,6 +1,5 @@
 using System.Net;
 using DataFIFA.Application.ViewModels.Careers;
-using DataFIFA.Core.Entities;
 using DataFIFA.Core.Exceptions;
 using DataFIFA.Core.Helpers;
 using DataFIFA.Core.Helpers.Interfaces;
@@ -22,7 +21,7 @@ public class GetCareerByIdQueryHandler : IRequestHandler<GetCareerByIdQuery, Car
     
     public async Task<CareerDetailsViewModel?> Handle(GetCareerByIdQuery request, CancellationToken cancellationToken)
     {
-        var career = await _careerRepository.GetByIdAsync(request.CareerId, x => x.Teams);
+        var career = await _careerRepository.GetByIdAsync(request.CareerId, x => x.Teams, x => x.CurrentTeam);
 
         if (career is null)
         {
@@ -35,7 +34,7 @@ public class GetCareerByIdQueryHandler : IRequestHandler<GetCareerByIdQuery, Car
                 career.Id, 
                 career.UserId, 
                 career.ManagerName, 
-                career.Teams.MinBy(t => t.LastUpdate)?.Name, 
+                career.CurrentTeam?.Name, 
                 career.Teams);
     }
 }

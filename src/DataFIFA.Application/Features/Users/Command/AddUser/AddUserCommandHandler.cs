@@ -1,5 +1,4 @@
 using System.Net;
-using DataFIFA.Application.ViewModels.Careers;
 using DataFIFA.Application.ViewModels.Users;
 using DataFIFA.Core.Entities;
 using DataFIFA.Core.Exceptions;

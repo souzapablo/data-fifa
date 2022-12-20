@@ -1,4 +1,5 @@
 using System.Net;
+// ReSharper disable MemberCanBePrivate.Global
 
 namespace DataFIFA.API.Controllers.Shared;
 
@@ -6,8 +7,8 @@ public class CustomResponse
 {
     public HttpStatusCode StatusCode { get; private set; }
     public bool Success { get; private set; }
-    public object Data { get; private set; } = null!;
-    public IEnumerable<string> Errors { get; private set; } = null!;
+    public object? Data { get; private set; }
+    public IEnumerable<string>? Errors { get; private set; }
 
     public CustomResponse(HttpStatusCode statusCode, bool success)
     {

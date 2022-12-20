@@ -1,7 +1,6 @@
 using System.Net;
 using DataFIFA.Application.ViewModels.Careers;
 using DataFIFA.Application.ViewModels.Users;
-using DataFIFA.Core.Entities;
 using DataFIFA.Core.Exceptions;
 using DataFIFA.Core.Helpers;
 using DataFIFA.Core.Helpers.Interfaces;
@@ -23,7 +22,7 @@ public class GetUserByIdQueryHandler : IRequestHandler<GetUserByIdQuery, UserDet
     
     public async Task<UserDetailsViewModel?> Handle(GetUserByIdQuery request, CancellationToken cancellationToken)
     {
-        var user = await _userRepository.GetByIdAsync(request.UserId, x => x.Careers);
+        var user = await _userRepository.GetUserByIdWithCurrentTeam(request.UserId);
 
         if (user is null)
         {
@@ -31,19 +30,17 @@ public class GetUserByIdQueryHandler : IRequestHandler<GetUserByIdQuery, UserDet
             _messageHandler.AddMessage(new ErrorMessage(HttpStatusCode.NotFound, ex.Message));
             return null;
         }
-        
-        return user is null 
-            ? null 
-            : new UserDetailsViewModel(
-                user.Id, 
-                user.Email, 
-                user.Name, 
-                user.Careers.Select(x => 
-                    new CareerViewModel(
-                        x.Id, 
-                        x.UserId, 
-                        x.ManagerName, 
-                        x.LastUpdate, 
-                        x.Teams.MinBy(t => t.LastUpdate)?.Name)).ToList());
+
+        return new UserDetailsViewModel(
+            user.Id, 
+            user.Email, 
+            user.Name, 
+            user.Careers.Select(x => 
+                new CareerViewModel(
+                    x.Id, 
+                    x.UserId, 
+                    x.ManagerName, 
+                    x.LastUpdate, 
+                    x.CurrentTeam?.Name)).ToList());
     }
 }

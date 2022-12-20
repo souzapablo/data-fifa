@@ -3,7 +3,7 @@ using MediatR;
 
 namespace DataFIFA.Application.Features.Teams.Commands.AddTeam;
 
-public class AddTeamCommand : IRequest<AddTeamViewModel>
+public class AddTeamCommand : IRequest<AddTeamViewModel?>
 {
     public AddTeamCommand(Guid careerId, string name, string stadium)
     {

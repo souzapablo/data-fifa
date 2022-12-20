@@ -14,8 +14,25 @@ public class UserRepository : BaseRepository<User>, IUserRepository
     
     public async Task<bool> IsEmailRegistered(string email)
     {
-        var user = await Context.Users.SingleOrDefaultAsync(x => x.Email == email);
+        var user = await Context.Users
+            .SingleOrDefaultAsync(x => x.Email == email);
 
         return user is not null;
+    }
+
+    public Task<List<User>> ListUsersWithCurrentTeam(Guid id)
+    {
+        return Context.Users
+            .Include(x => x.Careers)
+            .ThenInclude(x => x.CurrentTeam)
+            .ToListAsync();
+    }
+
+    public Task<User?> GetUserByIdWithCurrentTeam(Guid id)
+    {
+        return Context.Users
+            .Include(x => x.Careers)
+            .ThenInclude(x => x.CurrentTeam)
+            .SingleOrDefaultAsync(x => x.Id == id);
     }
 }

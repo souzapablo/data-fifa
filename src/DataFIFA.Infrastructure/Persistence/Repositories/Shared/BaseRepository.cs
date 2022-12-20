@@ -9,22 +9,22 @@ public class BaseRepository<T> : IBaseRepository<T> where T : BaseEntity
 {
     protected readonly DataFifaDbContext Context;
 
-    public BaseRepository(DataFifaDbContext context)
+    protected BaseRepository(DataFifaDbContext context)
     {
         Context = context;
     }
     
-    public async Task<List<T>> ListAllAsync(params Expression<Func<T, object>>[]? includes)
+    public async Task<List<T>> ListAllAsync(params Expression<Func<T, object?>>[]? includes)
     {
         var query = Context.Set<T>().AsQueryable();
 
         if (includes != null)
             query = includes.Aggregate(query, (current, include) => current.Include(include));
 
-        return await query.ToListAsync();
+        return await query.Where(x => x.IsActive).ToListAsync();
     }
 
-    public async Task<T?> GetByIdAsync(Guid id, params Expression<Func<T, object>>[]? includes)
+    public async Task<T?> GetByIdAsync(Guid id, params Expression<Func<T, object?>>[]? includes)
     {
         var query = Context.Set<T>().AsQueryable();
 
@@ -38,6 +38,12 @@ public class BaseRepository<T> : IBaseRepository<T> where T : BaseEntity
     {
         await Context.Set<T>().AddAsync(entity);
 
+        await Context.SaveChangesAsync();
+    }
+    
+    public async Task UpdateAsync(T entity)
+    {
+        Context.Entry(entity).State = EntityState.Modified;
         await Context.SaveChangesAsync();
     }
 }

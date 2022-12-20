@@ -1,6 +1,5 @@
 using DataFIFA.Application.ViewModels.Careers;
 using DataFIFA.Core.Entities;
-using DataFIFA.Core.Helpers.Interfaces;
 using DataFIFA.Infrastructure.Persistence.Repositories.Interfaces;
 using MediatR;
 
@@ -9,11 +8,9 @@ namespace DataFIFA.Application.Features.Careers.Commands.AddCareer;
 public class AddCareerCommandHandler : IRequestHandler<AddCareerCommand, AddCareerViewModel>
 {
     private readonly ICareerRepository _careerRepository;
-    private readonly IMessageHandler _messageHandler;
 
-    public AddCareerCommandHandler(ICareerRepository careerRepository, IMessageHandler messageHandler)
+    public AddCareerCommandHandler(ICareerRepository careerRepository)
     {
-        _messageHandler = messageHandler;
         _careerRepository = careerRepository;
     }
     

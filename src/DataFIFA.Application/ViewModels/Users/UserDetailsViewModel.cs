@@ -1,5 +1,4 @@
 using DataFIFA.Application.ViewModels.Careers;
-using DataFIFA.Core.Entities;
 
 namespace DataFIFA.Application.ViewModels.Users;
 
