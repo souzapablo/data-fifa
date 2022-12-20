@@ -43,7 +43,9 @@ public class BaseRepository<T> : IBaseRepository<T> where T : BaseEntity
     
     public async Task UpdateAsync(T entity)
     {
+        entity.Update();
         Context.Entry(entity).State = EntityState.Modified;
         await Context.SaveChangesAsync();
     }
+    
 }

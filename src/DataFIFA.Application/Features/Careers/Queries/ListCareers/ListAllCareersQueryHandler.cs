@@ -14,13 +14,13 @@ public class ListAllCareersQueryHandler : IRequestHandler<ListAllCareersQuery, L
     
     public async Task<List<CareerViewModel>> Handle(ListAllCareersQuery request, CancellationToken cancellationToken)
     {
-        var careers = await _careerRepository.ListAllAsync(x => x.Teams);
+        var careers = await _careerRepository.ListAllAsync(x => x.Teams, x => x.CurrentTeam);
 
         return careers.Select(x => new CareerViewModel(
             x.Id, 
             x.UserId, 
             x.ManagerName, 
             x.LastUpdate, 
-            x.Teams.MinBy(t => t.LastUpdate)?.Name)).ToList();
+            x.CurrentTeam?.Name)).ToList();
     }
 }

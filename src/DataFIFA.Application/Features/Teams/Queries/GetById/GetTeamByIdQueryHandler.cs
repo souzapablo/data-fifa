@@ -1,7 +1,7 @@
 using System.Net;
 using DataFIFA.Application.ViewModels.Players;
 using DataFIFA.Application.ViewModels.Teams;
-using DataFIFA.Core.Exceptions;
+using DataFIFA.Core.Constants;
 using DataFIFA.Core.Helpers;
 using DataFIFA.Core.Helpers.Interfaces;
 using DataFIFA.Infrastructure.Persistence.Repositories.Interfaces;
@@ -26,8 +26,8 @@ public class GetTeamByIdQueryHandler : IRequestHandler<GetTeamByIdQuery, TeamDet
 
         if (team is null)
         {
-            var ex = new EntityNotFoundException("Team", request.TeamId);
-            _messageHandler.AddMessage(new ErrorMessage(HttpStatusCode.NotFound, ex.Message));
+            _messageHandler.AddMessage(new ErrorMessage(HttpStatusCode.NotFound,    
+                ErrorConstants.EntityNotFound("Team", request.TeamId)));
             return null;
         }
 
@@ -36,7 +36,7 @@ public class GetTeamByIdQueryHandler : IRequestHandler<GetTeamByIdQuery, TeamDet
             team.CareerId,
             team.Name,
             team.Stadium,
-            team.Players.Select(x => new PlayerViewModel(
+            team.Players.Select(x => new PlayerDetailsViewModel(
                 x.Id,
                 x.TeamId,
                 x.Name,

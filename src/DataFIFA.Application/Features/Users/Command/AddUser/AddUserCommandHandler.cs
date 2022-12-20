@@ -1,7 +1,7 @@
 using System.Net;
 using DataFIFA.Application.ViewModels.Users;
+using DataFIFA.Core.Constants;
 using DataFIFA.Core.Entities;
-using DataFIFA.Core.Exceptions;
 using DataFIFA.Core.Helpers;
 using DataFIFA.Core.Helpers.Interfaces;
 using DataFIFA.Infrastructure.Persistence.Repositories.Interfaces;
@@ -25,8 +25,7 @@ public class AddUserCommandHandler : IRequestHandler<AddUserCommand, AddUserView
 
         if (isEmailRegistered)
         {
-            var ex = new EmailAlreadyRegisteredException();
-            _messageHandler.AddMessage(new ErrorMessage(HttpStatusCode.BadRequest, ex.Message));
+            _messageHandler.AddMessage(new ErrorMessage(HttpStatusCode.BadRequest, ErrorConstants.EmailAlreadyRegistered));
             return null;
         }
         

@@ -19,11 +19,7 @@ namespace DataFIFA.Core.Entities
         public string ManagerName { get; private set; }
         public List<Team> Teams { get; private set; }
 
-        public void AddTeam(Guid teamId)
-        {
-            CurrentTeamId = teamId;
-            LastUpdate = DateTime.Now;
-        }
+        public void SetCurrentTeam(Guid teamId) => CurrentTeamId = teamId;
         
     }
 }

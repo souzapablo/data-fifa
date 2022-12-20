@@ -7,6 +7,7 @@ namespace DataFIFA.Core.Entities.Shared
         public DateTime LastUpdate { get; private protected set; }
         public bool IsActive { get; private set; }
 
-        public void ToggleActiveStatus() => IsActive = !IsActive; 
+        public void ToggleActiveStatus() => IsActive = !IsActive;
+        public void Update() => LastUpdate = DateTime.Now;
     }
 }

@@ -1,7 +1,7 @@
 using System.Net;
 using DataFIFA.Application.ViewModels.Careers;
 using DataFIFA.Application.ViewModels.Users;
-using DataFIFA.Core.Exceptions;
+using DataFIFA.Core.Constants;
 using DataFIFA.Core.Helpers;
 using DataFIFA.Core.Helpers.Interfaces;
 using DataFIFA.Infrastructure.Persistence.Repositories.Interfaces;
@@ -26,8 +26,8 @@ public class GetUserByIdQueryHandler : IRequestHandler<GetUserByIdQuery, UserDet
 
         if (user is null)
         {
-            var ex = new EntityNotFoundException("User", request.UserId);
-            _messageHandler.AddMessage(new ErrorMessage(HttpStatusCode.NotFound, ex.Message));
+            _messageHandler.AddMessage(new ErrorMessage(HttpStatusCode.NotFound, 
+                ErrorConstants.EntityNotFound("User", request.UserId)));
             return null;
         }
 

@@ -1,7 +1,7 @@
 using System.Net;
 using DataFIFA.Application.ViewModels.Teams;
+using DataFIFA.Core.Constants;
 using DataFIFA.Core.Entities;
-using DataFIFA.Core.Exceptions;
 using DataFIFA.Core.Helpers;
 using DataFIFA.Core.Helpers.Interfaces;
 using DataFIFA.Infrastructure.Persistence.Repositories.Interfaces;
@@ -31,14 +31,14 @@ public class AddTeamCommandHandler : IRequestHandler<AddTeamCommand, AddTeamView
 
         if (career is null)
         {
-            var ex = new EntityNotFoundException("Career", request.CareerId);
-            _messageHandler.AddMessage(new ErrorMessage(HttpStatusCode.NotFound, ex.Message));
+            _messageHandler.AddMessage(new ErrorMessage(HttpStatusCode.NotFound, 
+                ErrorConstants.EntityNotFound("Career", request.CareerId)));
             return null;
         }
         
         await _teamRepository.AddAsync(team);
         
-        career.AddTeam(team.Id);
+        career.SetCurrentTeam(team.Id);
 
         await _careerRepository.UpdateAsync(career);
         

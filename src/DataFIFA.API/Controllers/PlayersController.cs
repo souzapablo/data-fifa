@@ -1,4 +1,5 @@
 using DataFIFA.API.Controllers.Shared;
+using DataFIFA.Application.Features.Players.Queries.GetById;
 using DataFIFA.Application.Features.Players.Queries.ListAll;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
@@ -20,6 +21,15 @@ public class PlayersController : BaseController
     public async Task<IActionResult> ListPlayersAsync()
     {
         var query = new ListAllPlayersQuery();
+        var result = await _mediator.Send(query);
+
+        return CustomResponse(result);
+    }
+
+    [HttpGet("{id:guid}")]
+    public async Task<IActionResult> GetPlayerByIdAsync(Guid id)
+    {
+        var query = new GetPlayerByIdQuery(id);
         var result = await _mediator.Send(query);
 
         return CustomResponse(result);

@@ -2,8 +2,8 @@ using System;
 using System.Threading;
 using System.Threading.Tasks;
 using DataFIFA.Application.Features.Users.Command.AddUser;
+using DataFIFA.Core.Constants;
 using DataFIFA.Core.Entities;
-using DataFIFA.Core.Exceptions;
 using DataFIFA.Core.Helpers;
 using DataFIFA.Infrastructure.Persistence.Repositories.Interfaces;
 using FluentAssertions;
@@ -42,7 +42,7 @@ public class AddUserCommandHandlerTests
     
     [Theory(DisplayName = "Given an already registered e-mail throw exception")]
     [InlineData("Olga", "olga@teste.com", "testing")]
-    public void GivenARegisteredEmailWhenCommandIsExecutedShouldThrowException(string name, string email, string password)
+    public async Task GivenARegisteredEmailWhenCommandIsExecutedShouldThrowException(string name, string email, string password)
     {
         // Arrange
         var commandHandler = GenerateCommandHandler;
@@ -51,11 +51,10 @@ public class AddUserCommandHandlerTests
             .ReturnsAsync(true);
         
         // Act
-        Func<Task> result = () => commandHandler.Handle(command, new CancellationToken());
+        var result = await commandHandler.Handle(command, new CancellationToken());
 
         // Assert
-        result.Should().ThrowAsync<EmailAlreadyRegisteredException>()
-            .WithMessage("E-mail already registered.");
+        _messageHandler.Messages.Should().Contain(x => x.Message == ErrorConstants.EmailAlreadyRegistered);
         _userRepositoryMock.Verify(x => x.AddAsync(It.IsAny<User>()), Times.Never);
     }
 

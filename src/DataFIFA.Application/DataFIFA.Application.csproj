@@ -26,4 +26,8 @@
     <ProjectReference Include="..\DataFIFA.Infrastructure\DataFIFA.Infrastructure.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Features\Players\Commands" />
+  </ItemGroup>
+
 </Project>

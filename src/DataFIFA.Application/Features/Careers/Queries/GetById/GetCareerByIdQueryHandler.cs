@@ -1,6 +1,6 @@
 using System.Net;
 using DataFIFA.Application.ViewModels.Careers;
-using DataFIFA.Core.Exceptions;
+using DataFIFA.Core.Constants;
 using DataFIFA.Core.Helpers;
 using DataFIFA.Core.Helpers.Interfaces;
 using DataFIFA.Infrastructure.Persistence.Repositories.Interfaces;
@@ -25,8 +25,8 @@ public class GetCareerByIdQueryHandler : IRequestHandler<GetCareerByIdQuery, Car
 
         if (career is null)
         {
-            var ex = new EntityNotFoundException("Career", request.CareerId);
-            _messageHandler.AddMessage(new ErrorMessage(HttpStatusCode.NotFound, ex.Message));
+            _messageHandler.AddMessage(new ErrorMessage(HttpStatusCode.NotFound, 
+                ErrorConstants.EntityNotFound("Career", request.CareerId)));
             return null;
         }
 
