@@ -24,6 +24,7 @@ public class ListAllPlayersQueryHandler : IRequestHandler<ListAllPlayersQuery, L
             x.Overall,
             x.Age,
             x.ShirtNumber,
-            x.Position.ToString())).ToList();
+            x.Position.ToString(),
+            x.Situation.ToString())).ToList();
     }
 }

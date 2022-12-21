@@ -37,6 +37,7 @@ public class GetPlayerByIdQueryHandler : IRequestHandler<GetPlayerByIdQuery, Pla
             player.Overall,
             player.Age,
             player.ShirtNumber,
-            player.Position.ToString());
+            player.Position.ToString(),
+            player.Situation.ToString());
     }
 }

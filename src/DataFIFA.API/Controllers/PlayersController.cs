@@ -1,6 +1,8 @@
 using DataFIFA.API.Controllers.Shared;
+using DataFIFA.Application.Features.Players.Commands.AddPlayer;
 using DataFIFA.Application.Features.Players.Queries.GetById;
 using DataFIFA.Application.Features.Players.Queries.ListAll;
+using DataFIFA.Application.InputModels.Players;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
@@ -31,6 +33,16 @@ public class PlayersController : BaseController
     {
         var query = new GetPlayerByIdQuery(id);
         var result = await _mediator.Send(query);
+
+        return CustomResponse(result);
+    }
+
+    [HttpPost]
+    public async Task<IActionResult> AddPlayerAsync(AddPlayerInputModel input)
+    {
+        var command = new AddPlayerCommand(input.TeamId, input.Name, input.ShirtNumber, input.Situation, input.Position,
+            input.Overall, input.Age);
+        var result = await _mediator.Send(command);
 
         return CustomResponse(result);
     }
