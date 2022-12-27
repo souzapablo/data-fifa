@@ -39,7 +39,7 @@ public class GetTeamByIdQueryHandler : IRequestHandler<GetTeamByIdQuery, TeamDet
             team.Players.Select(x => new PlayerDetailsViewModel(
                 x.Id,
                 x.TeamId,
-                x.Name,
+                x.FirstName,
                 x.Overall,
                 x.Age,
                 x.ShirtNumber,

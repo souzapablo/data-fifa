@@ -20,7 +20,7 @@ public class ListAllPlayersQueryHandler : IRequestHandler<ListAllPlayersQuery, L
         return players.Select(x => new PlayerDetailsViewModel(
             x.Id,
             x.TeamId, 
-            x.Name,
+            $"{x.FirstName} {x.LastName}",
             x.Overall,
             x.Age,
             x.ShirtNumber,

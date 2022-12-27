@@ -33,7 +33,7 @@ public class GetPlayerByIdQueryHandler : IRequestHandler<GetPlayerByIdQuery, Pla
         return new PlayerDetailsViewModel(
             player.Id,
             player.TeamId,
-            player.Name,
+            $"{player.FirstName} {player.LastName}",
             player.Overall,
             player.Age,
             player.ShirtNumber,
