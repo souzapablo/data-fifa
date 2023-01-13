@@ -32,7 +32,7 @@ public class AddTeamCommandHandler : IRequestHandler<AddTeamCommand, AddTeamView
         if (career is null)
         {
             _messageHandler.AddMessage(new ErrorMessage(HttpStatusCode.NotFound, 
-                ErrorConstants.EntityNotFound("Career", request.CareerId)));
+                ErrorConstants.CareerNotFound(request.CareerId)));
             return null;
         }
         

@@ -27,7 +27,7 @@ public class GetTeamByIdQueryHandler : IRequestHandler<GetTeamByIdQuery, TeamDet
         if (team is null)
         {
             _messageHandler.AddMessage(new ErrorMessage(HttpStatusCode.NotFound,    
-                ErrorConstants.EntityNotFound("Team", request.TeamId)));
+                ErrorConstants.TeamNotFound(request.TeamId)));
             return null;
         }
 

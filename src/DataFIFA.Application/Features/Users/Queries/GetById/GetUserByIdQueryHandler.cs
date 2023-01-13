@@ -27,7 +27,7 @@ public class GetUserByIdQueryHandler : IRequestHandler<GetUserByIdQuery, UserDet
         if (user is null)
         {
             _messageHandler.AddMessage(new ErrorMessage(HttpStatusCode.NotFound, 
-                ErrorConstants.EntityNotFound("User", request.UserId)));
+                ErrorConstants.UserNotFound(request.UserId)));
             return null;
         }
 

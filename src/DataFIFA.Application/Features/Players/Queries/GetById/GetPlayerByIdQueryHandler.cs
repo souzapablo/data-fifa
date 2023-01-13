@@ -26,7 +26,7 @@ public class GetPlayerByIdQueryHandler : IRequestHandler<GetPlayerByIdQuery, Pla
         if (player is null)
         {
             _messageHandler.AddMessage(new ErrorMessage(HttpStatusCode.NotFound, 
-                ErrorConstants.EntityNotFound("Player", request.PlayerId)));
+                ErrorConstants.PlayerNotFound(request.PlayerId)));
             return null;
         }
 

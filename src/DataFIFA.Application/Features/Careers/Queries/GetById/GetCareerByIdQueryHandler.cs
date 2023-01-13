@@ -26,7 +26,7 @@ public class GetCareerByIdQueryHandler : IRequestHandler<GetCareerByIdQuery, Car
         if (career is null)
         {
             _messageHandler.AddMessage(new ErrorMessage(HttpStatusCode.NotFound, 
-                ErrorConstants.EntityNotFound("Career", request.CareerId)));
+                ErrorConstants.CareerNotFound(request.CareerId)));
             return null;
         }
 
