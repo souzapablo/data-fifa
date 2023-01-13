@@ -47,5 +47,11 @@ public class BaseRepository<T> : IBaseRepository<T> where T : BaseEntity
         Context.Entry(entity).State = EntityState.Modified;
         await Context.SaveChangesAsync();
     }
-    
+
+    public async Task Delete(T entity)
+    {
+        Context.Set<T>().Remove(entity);
+        await Context.SaveChangesAsync();
+    }
+
 }

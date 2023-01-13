@@ -1,6 +1,7 @@
 using System.Net;
 using DataFIFA.Core.Extensions;
 using DataFIFA.Core.Helpers.Interfaces;
+using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
 namespace DataFIFA.API.Controllers.Shared;
@@ -14,11 +15,11 @@ public class BaseController : ControllerBase
 
         switch (result)
         {
-            case null when messageHandler?.HasMessage == true:
-            {
-                var error = messageHandler.Messages.First();
-                return Response(error.Status, error.Message);
-            }
+            case null or Unit when messageHandler?.HasMessage == true:
+                {
+                    var error = messageHandler.Messages.First();
+                    return Response(error.Status, error.Message);
+                }
             case null:
                 return Response(HttpStatusCode.NotFound, result);
             default:
@@ -34,7 +35,7 @@ public class BaseController : ControllerBase
             var success = statusCode.IsSuccess();
 
             result = data != null ?
-                new CustomResponse(statusCode, success, data) : 
+                new CustomResponse(statusCode, success, data) :
                 new CustomResponse(statusCode, success);
         }
         else

@@ -8,4 +8,5 @@ public interface IBaseRepository<T>
     Task<T?> GetByIdAsync(Guid id, params Expression<Func<T, object?>>[]? includes);
     Task AddAsync(T entity);
     Task UpdateAsync(T entity);
+    Task Delete(T entity);
 }

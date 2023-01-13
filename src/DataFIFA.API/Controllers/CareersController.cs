@@ -1,5 +1,6 @@
 using DataFIFA.API.Controllers.Shared;
 using DataFIFA.Application.Features.Careers.Commands.AddCareer;
+using DataFIFA.Application.Features.Careers.Commands.DeleteCareer;
 using DataFIFA.Application.Features.Careers.Queries.GetById;
 using DataFIFA.Application.Features.Careers.Queries.ListCareers;
 using DataFIFA.Application.InputModels.Careers;
@@ -41,6 +42,15 @@ public class CareersController : BaseController
     public async Task<IActionResult> AddCareerAsync([FromBody] AddCareerInputModel input)
     {
         var command = new AddCareerCommand(input.UserId, input.ManagerName);
+        var result = await _mediator.Send(command);
+
+        return CustomResponse(result);
+    }
+
+    [HttpDelete("{careerId:guid}")]
+    public async Task<IActionResult> DeleteCareerAsync(Guid careerId)
+    {
+        var command = new DeleteCareerCommand(careerId);
         var result = await _mediator.Send(command);
 
         return CustomResponse(result);
