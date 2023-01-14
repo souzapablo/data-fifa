@@ -5,12 +5,14 @@ using DataFIFA.Application.Features.Careers.Queries.GetById;
 using DataFIFA.Application.Features.Careers.Queries.ListCareers;
 using DataFIFA.Application.InputModels.Careers;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace DataFIFA.API.Controllers;
 
 [ApiController]
 [Route("/api/v1/careers")]
+[Authorize]
 public class CareersController : BaseController
 {
     private readonly IMediator _mediator;
