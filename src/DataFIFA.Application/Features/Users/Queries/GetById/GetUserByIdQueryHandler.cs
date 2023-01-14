@@ -33,8 +33,8 @@ public class GetUserByIdQueryHandler : IRequestHandler<GetUserByIdQuery, UserDet
 
         return new UserDetailsViewModel(
             user.Id, 
-            user.Email, 
             user.Name, 
+            user.Email, 
             user.Careers.Select(x => 
                 new CareerViewModel(
                     x.Id, 

@@ -2,9 +2,10 @@ namespace DataFIFA.Core.Constants;
 
 public static class ErrorConstants
 {
-    public static string CareerNotFound(Guid id) => $"Carreira com id {id} n�o encontrada.";
-    public static string UserNotFound(Guid id) => $"Usu�rio com Id {id} n�o encontrado.";
-    public static string PlayerNotFound(Guid id) => $"Jogador com Id {id} n�o encontrado.";
-    public static string TeamNotFound(Guid id) => $"Time com Id {id} n�o encontrado.";
-    public static string EmailAlreadyRegistered => "E-mail already registered.";
+    public static string CareerNotFound(Guid id) => $"Carreira com id {id} não encontrada.";
+    public static string UserNotFound(Guid id) => $"Usuário com Id {id} não encontrado.";
+    public static string PlayerNotFound(Guid id) => $"Jogador com Id {id} não encontrado.";
+    public static string TeamNotFound(Guid id) => $"Time com Id {id} não encontrado.";
+    public static string EmailAlreadyRegistered => "E-mail inválido ou já cadastrado.";
+    public static string InvalidUserNameOrPassword => "Usuário ou senha inválidos.";
 }

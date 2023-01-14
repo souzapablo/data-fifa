@@ -1,6 +1,8 @@
 using DataFIFA.Application.Features.Users.Queries.ListUsers;
 using DataFIFA.Core.Helpers;
 using DataFIFA.Core.Helpers.Interfaces;
+using DataFIFA.Core.Services;
+using DataFIFA.Infrastructure.Auth;
 using DataFIFA.Infrastructure.Persistence;
 using DataFIFA.Infrastructure.Persistence.Repositories;
 using DataFIFA.Infrastructure.Persistence.Repositories.Interfaces;
@@ -24,6 +26,7 @@ builder.Services.AddScoped<ICareerRepository, CareerRepository>();
 builder.Services.AddScoped<ITeamRepository, TeamRepository>();
 builder.Services.AddScoped<IPlayerRepository, PlayerRepository>();
 builder.Services.AddScoped<IMessageHandler, MessageHandler>();
+builder.Services.AddScoped<IAuthService, AuthService>();
 
 builder.Services.AddCors(p => p.AddPolicy("corsapp", builder =>
 {

@@ -5,6 +5,7 @@ using DataFIFA.Application.Features.Users.Command.AddUser;
 using DataFIFA.Core.Constants;
 using DataFIFA.Core.Entities;
 using DataFIFA.Core.Helpers;
+using DataFIFA.Core.Services;
 using DataFIFA.Infrastructure.Persistence.Repositories.Interfaces;
 using FluentAssertions;
 using Moq;
@@ -15,12 +16,14 @@ namespace DataFIFA.UnitTests.Features.Users.Commands;
 public class AddUserCommandHandlerTests
 {
     private readonly Mock<IUserRepository> _userRepositoryMock;
+    private readonly Mock<IAuthService> _authService;
     private readonly MessageHandler _messageHandler;
     
     public AddUserCommandHandlerTests()
     {
         _userRepositoryMock = new Mock<IUserRepository>();
         _messageHandler = new MessageHandler();
+        _authService = new Mock<IAuthService>();
     }
     
     [Theory(DisplayName = "Given a valid user command add a new user")]
@@ -58,5 +61,5 @@ public class AddUserCommandHandlerTests
         _userRepositoryMock.Verify(x => x.AddAsync(It.IsAny<User>()), Times.Never);
     }
 
-    private AddUserCommandHandler GenerateCommandHandler => new (_userRepositoryMock.Object, _messageHandler);
+    private AddUserCommandHandler GenerateCommandHandler => new (_userRepositoryMock.Object, _messageHandler, _authService.Object);
 }

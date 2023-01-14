@@ -17,7 +17,7 @@ public class AuthService : IAuthService
         _configuration = configuration;
     }
     
-    public string GenerateJwtToken(string userName)
+    public string GenerateJwtToken(string name)
     {
         var issuer = _configuration["Jwt:Issuer"];
         var audience = _configuration["Jwt:Audience"];
@@ -28,7 +28,7 @@ public class AuthService : IAuthService
 
         var claims = new List<Claim>
         {
-            new Claim("userName", userName)
+            new Claim("name", name)
         };
 
         var token = new JwtSecurityToken(
@@ -43,5 +43,17 @@ public class AuthService : IAuthService
         var stringToken = tokenHandler.WriteToken(token);
 
         return stringToken;
+    }
+
+    public string ComputeSha256Hash(string password)
+    {
+        using var sha256Hash = SHA256.Create();
+        var bytes = sha256Hash.ComputeHash(Encoding.UTF8.GetBytes(password));
+
+        var builder = new StringBuilder();
+        foreach (var t in bytes)
+            builder.Append(t.ToString("x2"));
+
+        return builder.ToString();
     }
 }

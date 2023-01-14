@@ -19,20 +19,18 @@ public class UserRepository : BaseRepository<User>, IUserRepository
 
         return user is not null;
     }
-
-    public Task<List<User>> ListUsersWithCurrentTeam(Guid id)
-    {
-        return Context.Users
-            .Include(x => x.Careers)
-            .ThenInclude(x => x.CurrentTeam)
-            .ToListAsync();
-    }
-
+    
     public Task<User?> GetUserByIdWithCurrentTeam(Guid id)
     {
         return Context.Users
             .Include(x => x.Careers)
             .ThenInclude(x => x.CurrentTeam)
             .SingleOrDefaultAsync(x => x.Id == id);
+    }
+
+    public async Task<User?> GetUserByNameAndPassword(string name, string password)
+    {
+        return await Context.Users
+            .SingleOrDefaultAsync(x => x.Name == name && x.Password == password);
     }
 }
