@@ -2,6 +2,7 @@ using DataFIFA.API.Controllers.Shared;
 using DataFIFA.Application.Features.Careers.Commands.AddCareer;
 using DataFIFA.Application.Features.Careers.Commands.DeleteCareer;
 using DataFIFA.Application.Features.Careers.Queries.GetById;
+using DataFIFA.Application.Features.Careers.Queries.GetByUserId;
 using DataFIFA.Application.Features.Careers.Queries.ListCareers;
 using DataFIFA.Application.InputModels.Careers;
 using MediatR;
@@ -12,7 +13,6 @@ namespace DataFIFA.API.Controllers;
 
 [ApiController]
 [Route("/api/v1/careers")]
-[Authorize]
 public class CareersController : BaseController
 {
     private readonly IMediator _mediator;
@@ -28,6 +28,15 @@ public class CareersController : BaseController
         var query = new ListAllCareersQuery();
         var result = await _mediator.Send(query);
         
+        return CustomResponse(result);
+    }
+
+    [HttpGet("user/{userId:guid}")]
+    public async Task<IActionResult> GetCareersByUserId(Guid userId)
+    {
+        var query = new GetCareerByUserIdQuery(userId);
+        var result = await _mediator.Send(query);
+
         return CustomResponse(result);
     }
 

@@ -5,5 +5,5 @@ namespace DataFIFA.Infrastructure.Persistence.Repositories.Interfaces;
 
 public interface ICareerRepository : IBaseRepository<Career>
 {
-    
+    Task<List<Career>?> GetByUserId(Guid userId);
 }

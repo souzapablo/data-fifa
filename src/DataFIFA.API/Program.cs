@@ -1,4 +1,3 @@
-using System.IdentityModel.Tokens.Jwt;
 using System.Text;
 using DataFIFA.Application.Features.Users.Queries.ListUsers;
 using DataFIFA.Core.Helpers;
@@ -53,6 +52,11 @@ builder.Services.AddSwaggerGen(c =>
     });
 });
 
+builder.Services.AddCors(p => p.AddPolicy("corsapp", builder =>
+{
+    builder.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader();
+}));
+
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
     .AddJwtBearer(options =>
     {
@@ -77,11 +81,6 @@ builder.Services.AddScoped<ITeamRepository, TeamRepository>();
 builder.Services.AddScoped<IPlayerRepository, PlayerRepository>();
 builder.Services.AddScoped<IMessageHandler, MessageHandler>();
 builder.Services.AddScoped<IAuthService, AuthService>();
-
-builder.Services.AddCors(p => p.AddPolicy("corsapp", builder =>
-{
-    builder.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader();
-}));
 
 var app = builder.Build();
 
