@@ -23,7 +23,7 @@ public class ListAllPlayersQueryHandler : IRequestHandler<ListAllPlayersQuery, L
             $"{x.FirstName} {x.LastName}",
             x.Overall,
             x.Age,
-            x.ShirtNumber,
+            x.KitNumber,
             x.Position.ToString(),
             x.Situation.ToString())).ToList();
     }

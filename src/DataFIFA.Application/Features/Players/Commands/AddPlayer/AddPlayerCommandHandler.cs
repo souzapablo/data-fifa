@@ -16,7 +16,7 @@ public class AddPlayerCommandHandler : IRequestHandler<AddPlayerCommand, PlayerD
     
     public async Task<PlayerDetailsViewModel> Handle(AddPlayerCommand request, CancellationToken cancellationToken)
     {
-        var player = new Player(request.TeamId, request.FirstName, request.LastName, request.Overall, request.ShirtNumber, request.Situation,
+        var player = new Player(request.TeamId, request.FirstName, request.LastName, request.Overall, request.KitNumber, request.Situation,
             request.Position, request.Age);
 
         await _playerRepository.AddAsync(player);
@@ -27,7 +27,7 @@ public class AddPlayerCommandHandler : IRequestHandler<AddPlayerCommand, PlayerD
             $"{player.FirstName} {player.LastName}",
             player.Overall,
             player.Age,
-            player.ShirtNumber,
+            player.KitNumber,
             player.Position.ToString(),
             player.Situation.ToString());
     }

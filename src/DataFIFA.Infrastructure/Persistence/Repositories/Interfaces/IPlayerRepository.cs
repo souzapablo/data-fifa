@@ -5,5 +5,5 @@ namespace DataFIFA.Infrastructure.Persistence.Repositories.Interfaces;
 
 public interface IPlayerRepository : IBaseRepository<Player>
 {
-    
+    Task AddLineUpAsync(List<Player> lineUp);
 }

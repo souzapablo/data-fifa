@@ -3,7 +3,7 @@ using MediatR;
 
 namespace DataFIFA.Application.Features.Teams.Queries.GetById;
 
-public class GetTeamByIdQuery : IRequest<TeamDetailsVIewModel?>
+public class GetTeamByIdQuery : IRequest<TeamDetailsViewModel?>
 {
     public GetTeamByIdQuery(Guid teamId)
     {

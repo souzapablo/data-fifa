@@ -1,5 +1,4 @@
 ﻿using DataFIFA.Core.Constants;
-using DataFIFA.Core.Entities;
 using DataFIFA.Core.Helpers;
 using DataFIFA.Core.Helpers.Interfaces;
 using DataFIFA.Infrastructure.Persistence.Repositories.Interfaces;

@@ -6,7 +6,6 @@ using DataFIFA.Application.Features.Careers.Queries.GetByUserId;
 using DataFIFA.Application.Features.Careers.Queries.ListCareers;
 using DataFIFA.Application.InputModels.Careers;
 using MediatR;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace DataFIFA.API.Controllers;

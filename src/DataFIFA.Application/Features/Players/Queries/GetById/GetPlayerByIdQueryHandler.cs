@@ -36,7 +36,7 @@ public class GetPlayerByIdQueryHandler : IRequestHandler<GetPlayerByIdQuery, Pla
             $"{player.FirstName} {player.LastName}",
             player.Overall,
             player.Age,
-            player.ShirtNumber,
+            player.KitNumber,
             player.Position.ToString(),
             player.Situation.ToString());
     }

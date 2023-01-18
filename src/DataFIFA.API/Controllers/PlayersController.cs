@@ -40,7 +40,7 @@ public class PlayersController : BaseController
     [HttpPost]
     public async Task<IActionResult> AddPlayerAsync(AddPlayerInputModel input)
     {
-        var command = new AddPlayerCommand(input.TeamId, input.FirstName, input.LastName, input.ShirtNumber, input.Situation, input.Position,
+        var command = new AddPlayerCommand(input.TeamId, input.FirstName, input.LastName, input.KitNumber, input.Situation, input.Position,
             input.Overall, input.Age);
         var result = await _mediator.Send(command);
 

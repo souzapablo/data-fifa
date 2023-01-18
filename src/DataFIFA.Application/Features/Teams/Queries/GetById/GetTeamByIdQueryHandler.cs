@@ -9,7 +9,7 @@ using MediatR;
 
 namespace DataFIFA.Application.Features.Teams.Queries.GetById;
 
-public class GetTeamByIdQueryHandler : IRequestHandler<GetTeamByIdQuery, TeamDetailsVIewModel?>
+public class GetTeamByIdQueryHandler : IRequestHandler<GetTeamByIdQuery, TeamDetailsViewModel?>
 {
     private readonly ITeamRepository _teamRepository;
     private readonly IMessageHandler _messageHandler;
@@ -20,7 +20,7 @@ public class GetTeamByIdQueryHandler : IRequestHandler<GetTeamByIdQuery, TeamDet
         _messageHandler = messageHandler;
     }
     
-    public async Task<TeamDetailsVIewModel?> Handle(GetTeamByIdQuery request, CancellationToken cancellationToken)
+    public async Task<TeamDetailsViewModel?> Handle(GetTeamByIdQuery request, CancellationToken cancellationToken)
     {
         var team = await _teamRepository.GetByIdAsync(request.TeamId, x => x.Players);
 
@@ -31,7 +31,7 @@ public class GetTeamByIdQueryHandler : IRequestHandler<GetTeamByIdQuery, TeamDet
             return null;
         }
 
-        return new TeamDetailsVIewModel(
+        return new TeamDetailsViewModel(
             team.Id,
             team.CareerId,
             team.Name,
@@ -39,10 +39,10 @@ public class GetTeamByIdQueryHandler : IRequestHandler<GetTeamByIdQuery, TeamDet
             team.Players.Select(x => new PlayerDetailsViewModel(
                 x.Id,
                 x.TeamId,
-                x.FirstName,
+                $"{x.FirstName} {x.LastName}",
                 x.Overall,
                 x.Age,
-                x.ShirtNumber,
+                x.KitNumber,
                 x.Position.ToString(),
                 x.Situation.ToString())).ToList());
     }
