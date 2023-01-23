@@ -14,14 +14,5 @@ public class UserConfigurations : IEntityTypeConfiguration<User>
             (u => u.Careers)
             .WithOne(c => c.User)
             .HasForeignKey(c => c.UserId);
-
-        builder.Property(u => u.CreatedAt)
-            .HasDefaultValue(DateTime.Now);
-        
-        builder.Property(u => u.LastUpdate)
-            .HasDefaultValue(DateTime.Now);
-
-        builder.Property(u => u.IsActive)
-            .HasDefaultValue(true);
     }
 }

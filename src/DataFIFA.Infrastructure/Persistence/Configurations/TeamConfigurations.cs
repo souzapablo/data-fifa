@@ -13,14 +13,5 @@ public class TeamConfigurations : IEntityTypeConfiguration<Team>
         builder.HasMany(t => t.Players)
             .WithOne(p => p.Team)
             .HasForeignKey(t => t.TeamId);
-        
-        builder.Property(t => t.CreatedAt)
-            .HasDefaultValue(DateTime.Now);
-        
-        builder.Property(t => t.LastUpdate)
-            .HasDefaultValue(DateTime.Now);
-
-        builder.Property(t => t.IsActive)
-            .HasDefaultValue(true);
     }
 }

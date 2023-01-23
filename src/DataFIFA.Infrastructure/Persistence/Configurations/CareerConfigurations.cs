@@ -17,14 +17,5 @@ public class CareerConfigurations : IEntityTypeConfiguration<Career>
         builder.HasOne(c => c.CurrentTeam)
             .WithOne()
             .HasForeignKey<Career>(c => c.CurrentTeamId);
-        
-        builder.Property(c => c.CreatedAt)
-            .HasDefaultValue(DateTime.Now);
-        
-        builder.Property(c => c.LastUpdate)
-            .HasDefaultValue(DateTime.Now);
-
-        builder.Property(c => c.IsActive)
-            .HasDefaultValue(true);
     }
 }
