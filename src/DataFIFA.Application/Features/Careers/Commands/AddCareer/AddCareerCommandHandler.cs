@@ -57,6 +57,10 @@ public class AddCareerCommandHandler : IRequestHandler<AddCareerCommand, AddCare
             await _careerRepository.AddAsync(career);
             
             var teamId = await AddInitialTeam(career.Id, request.InitialTeamName);
+
+            career.SetCurrentTeam(teamId);
+
+            await _careerRepository.UpdateAsync(career);
             
             transaction.Commit();
             
