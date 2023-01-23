@@ -51,7 +51,7 @@ public class CareersController : BaseController
     [HttpPost]
     public async Task<IActionResult> AddCareerAsync([FromBody] AddCareerInputModel input)
     {
-        var command = new AddCareerCommand(input.UserId, input.ManagerName);
+        var command = new AddCareerCommand(input.UserId, input.ManagerName, input.InitialTeamName);
         var result = await _mediator.Send(command);
 
         return CustomResponse(result);

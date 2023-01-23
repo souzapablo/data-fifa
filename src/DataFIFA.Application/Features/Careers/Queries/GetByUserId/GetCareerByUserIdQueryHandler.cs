@@ -17,7 +17,7 @@ public class GetCareerByUserIdQueryHandler : IRequestHandler<GetCareerByUserIdQu
     {
         var careers = await _careerRepository.GetByUserId(request.UserId);
 
-        return careers.Select(x => new CareerViewModel(
+        return careers?.Select(x => new CareerViewModel(
             x.Id,
             x.UserId,
             x.ManagerName,

@@ -8,4 +8,5 @@ public static class ErrorConstants
     public static string TeamNotFound(Guid id) => $"Time com Id {id} não encontrado.";
     public static string EmailAlreadyRegistered => "E-mail inválido ou já cadastrado.";
     public static string InvalidUserNameOrPassword => "Usuário ou senha inválidos.";
+    public static string InitialTeamNotFound(string initialTeamName) => $"Time {initialTeamName} não encontrado.";
 }

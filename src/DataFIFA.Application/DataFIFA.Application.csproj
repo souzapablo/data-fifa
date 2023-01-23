@@ -8,14 +8,17 @@
 
   <ItemGroup>
     <Compile Remove="Queries\Users\**" />
+    <Compile Remove="Features\Teams\Commands\AddInitialTeam\**" />
   </ItemGroup>
 
   <ItemGroup>
     <EmbeddedResource Remove="Queries\Users\**" />
+    <EmbeddedResource Remove="Features\Teams\Commands\AddInitialTeam\**" />
   </ItemGroup>
 
   <ItemGroup>
     <None Remove="Queries\Users\**" />
+    <None Remove="Features\Teams\Commands\AddInitialTeam\**" />
   </ItemGroup>
 
   <ItemGroup>

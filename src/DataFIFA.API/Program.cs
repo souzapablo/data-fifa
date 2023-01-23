@@ -17,8 +17,8 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 var connectionString = builder.Configuration.GetConnectionString("DataFIFADb");
-//builder.Services.AddDbContext<DataFifaDbContext>(o => o.UseSqlServer(connectionString));
-builder.Services.AddDbContext<DataFifaDbContext>(o => o.UseInMemoryDatabase("DataFIFADb"));
+builder.Services.AddDbContext<DataFifaDbContext>(o => o.UseSqlServer(connectionString));
+//builder.Services.AddDbContext<DataFifaDbContext>(o => o.UseInMemoryDatabase("DataFIFADb"));
 builder.Services.AddControllers();
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
