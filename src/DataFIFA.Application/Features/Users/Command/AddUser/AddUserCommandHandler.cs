@@ -1,4 +1,5 @@
 using System.Net;
+using DataFIFA.Application.Validators.Users;
 using DataFIFA.Application.ViewModels.Users;
 using DataFIFA.Core.Constants;
 using DataFIFA.Core.Entities;
@@ -25,16 +26,24 @@ public class AddUserCommandHandler : IRequestHandler<AddUserCommand, AddUserView
     
     public async Task<AddUserViewModel?> Handle(AddUserCommand request, CancellationToken cancellationToken)
     {
+        var validationErrors = new AddUserCommandValidator().ListErrors(request);
+
+        if (validationErrors.Any())
+        {
+            _messageHandler.AddRangeMessages(validationErrors);
+            return null;
+        }
+
         var isEmailRegistered = await _userRepository.IsEmailRegistered(request.Email);
 
-        var passwordHash = _authService.ComputeSha256Hash(request.Password);
-        
         if (isEmailRegistered)
         {
             _messageHandler.AddMessage(new ErrorMessage(HttpStatusCode.BadRequest, ErrorConstants.EmailAlreadyRegistered));
             return null;
         }
-        
+
+        var passwordHash = _authService.ComputeSha256Hash(request.Password);
+             
         var user = new User(request.Name, request.Email, passwordHash);
 
         await _userRepository.AddAsync(user);

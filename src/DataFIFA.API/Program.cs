@@ -7,6 +7,7 @@ using DataFIFA.Infrastructure.Auth;
 using DataFIFA.Infrastructure.Persistence;
 using DataFIFA.Infrastructure.Persistence.Repositories;
 using DataFIFA.Infrastructure.Persistence.Repositories.Interfaces;
+using FluentValidation.AspNetCore;
 using MediatR;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
@@ -20,7 +21,7 @@ var connectionString = builder.Configuration.GetConnectionString("DataFIFADb");
 builder.Services.AddDbContext<DataFifaDbContext>(o => o.UseSqlServer(connectionString));
 //builder.Services.AddDbContext<DataFifaDbContext>(o => o.UseInMemoryDatabase("DataFIFADb"));
 builder.Services.AddControllers();
-
+builder.Services.AddFluentValidationClientsideAdapters();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(c =>

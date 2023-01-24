@@ -1,5 +1,6 @@
 using System.Net;
 using DataFIFA.Core.Extensions;
+using DataFIFA.Core.Helpers;
 using DataFIFA.Core.Helpers.Interfaces;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
@@ -15,6 +16,8 @@ public class BaseController : ControllerBase
 
         switch (result)
         {
+            case null or Unit when messageHandler?.HasMessage == true && messageHandler.Messages.Count > 1:
+                return Response(messageHandler.Messages);
             case null or Unit when messageHandler?.HasMessage == true:
                 {
                     var error = messageHandler.Messages.First();
@@ -47,6 +50,20 @@ public class BaseController : ControllerBase
 
             result = new CustomResponse(statusCode, false, errors);
         }
+        return new JsonResult(result) { StatusCode = (int)result.StatusCode };
+    }
+
+    private new JsonResult Response(List<ErrorMessage> errors)
+    {
+        CustomResponse result;
+
+        var message = new List<string>();
+
+        foreach (var error in errors)
+            message.Add(error.Message);
+
+        result = new CustomResponse(errors[0].Status, false, message);
+
         return new JsonResult(result) { StatusCode = (int)result.StatusCode };
     }
 
