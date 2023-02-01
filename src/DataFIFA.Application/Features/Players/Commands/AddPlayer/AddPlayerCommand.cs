@@ -4,7 +4,7 @@ using MediatR;
 
 namespace DataFIFA.Application.Features.Players.Commands.AddPlayer;
 
-public class AddPlayerCommand : IRequest<PlayerDetailsViewModel>
+public class AddPlayerCommand : IRequest<PlayerDetailsViewModel?>
 {
     public AddPlayerCommand(Guid teamId, string firstName, string lastName, int kitNumber, Situation situation, Position position, int overall, int age)
     {

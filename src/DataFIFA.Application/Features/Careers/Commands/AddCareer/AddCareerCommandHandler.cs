@@ -10,6 +10,7 @@ using DataFIFA.Core.Helpers.Files.InitialTeams;
 using Microsoft.Data.SqlClient;
 using Microsoft.Extensions.Configuration;
 using Newtonsoft.Json;
+using DataFIFA.Application.Validators.Careers;
 
 namespace DataFIFA.Application.Features.Careers.Commands.AddCareer;
 
@@ -36,6 +37,14 @@ public class AddCareerCommandHandler : IRequestHandler<AddCareerCommand, AddCare
     
     public async Task<AddCareerViewModel?> Handle(AddCareerCommand request, CancellationToken cancellationToken)
     {
+        var validationErrors = new AddCareerCommandValidator().ListErrors(request);
+
+        if (validationErrors.Any())
+        {
+            _messageHandler.AddRangeMessages(validationErrors);
+            return null;
+        }
+
         var career = new Career(request.UserId, request.ManagerName);
 
         var user = await _userRepository.GetByIdAsync(request.UserId);

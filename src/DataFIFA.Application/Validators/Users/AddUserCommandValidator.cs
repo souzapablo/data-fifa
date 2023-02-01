@@ -20,7 +20,7 @@ namespace DataFIFA.Application.Validators.Users
 
             RuleFor(x => x.Password)
                 .Must(ValidPassword)
-                .WithMessage("Senha deve conter pelo menos 8 caracateres, um número, uma letra maiúscula, uma minúscula e um caractere especial.");
+                .WithMessage("A senha deve conter pelo menos 8 caracateres, um número, uma letra maiúscula, uma minúscula e um caractere especial.");
         }
 
         public static bool ValidPassword(string password)

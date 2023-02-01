@@ -1,4 +1,5 @@
 using System.Net;
+using DataFIFA.Application.Validators.Teams;
 using DataFIFA.Application.ViewModels.Teams;
 using DataFIFA.Core.Constants;
 using DataFIFA.Core.Entities;
@@ -25,6 +26,14 @@ public class AddTeamCommandHandler : IRequestHandler<AddTeamCommand, AddTeamView
     
     public async Task<AddTeamViewModel?> Handle(AddTeamCommand request, CancellationToken cancellationToken)
     {
+        var validationErrors = new AddTeamCommandValidator().ListErrors(request);
+
+        if (validationErrors.Any())
+        {
+            _messageHandler.AddRangeMessages(validationErrors);
+            return null;
+        }
+
         var team = new Team(request.CareerId, request.Name, request.Stadium);
         
         var career = await _careerRepository.GetByIdAsync(request.CareerId);
