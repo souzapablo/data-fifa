@@ -1,14 +1,4 @@
-using System.Threading;
-using System.Threading.Tasks;
 using DataFIFA.Application.Features.Users.Command.AddUser;
-using DataFIFA.Core.Constants;
-using DataFIFA.Core.Entities;
-using DataFIFA.Core.Helpers;
-using DataFIFA.Core.Services;
-using DataFIFA.Infrastructure.Persistence.Repositories.Interfaces;
-using FluentAssertions;
-using Moq;
-using Xunit;
 
 namespace DataFIFA.UnitTests.Features.Users.Commands;
 
@@ -26,7 +16,7 @@ public class AddUserCommandHandlerTests
     }
     
     [Theory(DisplayName = "Given a valid user command add a new user")]
-    [InlineData("Olga", "olga@teste.com", "testing")]
+    [InlineData("Olga", "olga@teste.com", "GIVEN@validp455")]
     public async Task GivenAValidAddUserCommandWhenCommandIsExecutedShouldAddNewUser(string name, string email, string password)
     {
         // Arrange
@@ -43,7 +33,7 @@ public class AddUserCommandHandlerTests
     }
     
     [Theory(DisplayName = "Given an already registered e-mail throw exception")]
-    [InlineData("Olga", "olga@teste.com", "testing")]
+    [InlineData("Olga", "olga@teste.com", "GIVEN@validp455")]
     public async Task GivenARegisteredEmailWhenCommandIsExecutedShouldThrowException(string name, string email, string password)
     {
         // Arrange
@@ -58,6 +48,24 @@ public class AddUserCommandHandlerTests
         // Assert
         _messageHandler.Messages.Should().Contain(x => x.Message == ErrorConstants.EmailAlreadyRegistered);
         _userRepositoryMock.Verify(x => x.AddAsync(It.IsAny<User>()), Times.Never);
+    }
+
+    [Theory(DisplayName = "Given an invalid command return error message")]
+    [InlineData("Olga", "olga@teste.com", "weakpassword")]
+    [InlineData("Olga", "olgaestm", "GIVEN@validp455")]
+    [InlineData(null, "olga@teste.com", "GIVEN@validp455")]
+    public async Task GivenAnInvalidPasswordWhenCommandIsExecutedShouldReturnErrorMessage(string name, string email, string password)
+    {
+        // Arrange
+        var commandHandler = GenerateCommandHandler;
+        var command = new AddUserCommand(name, email, password);
+
+        // Act
+        await commandHandler.Handle(command, new CancellationToken());
+
+        // Assert
+        _messageHandler.HasMessage.Should().BeTrue();
+        _messageHandler.Messages.Should().Contain(x => x.Status == HttpStatusCode.BadRequest);
     }
 
     private AddUserCommandHandler GenerateCommandHandler => new (_userRepositoryMock.Object, _messageHandler, _authService.Object);

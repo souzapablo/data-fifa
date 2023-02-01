@@ -1,0 +1,13 @@
+﻿global using System;
+global using System.Net;
+global using System.Threading;
+global using System.Threading.Tasks;
+global using Bogus; 
+global using DataFIFA.Core.Constants;
+global using DataFIFA.Core.Entities;
+global using DataFIFA.Core.Helpers;
+global using DataFIFA.Core.Services;
+global using DataFIFA.Infrastructure.Persistence.Repositories.Interfaces;
+global using FluentAssertions;
+global using Moq;
+global using Xunit;

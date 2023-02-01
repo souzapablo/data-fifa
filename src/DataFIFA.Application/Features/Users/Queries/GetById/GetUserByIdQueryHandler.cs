@@ -24,23 +24,21 @@ public class GetUserByIdQueryHandler : IRequestHandler<GetUserByIdQuery, UserDet
     {
         var user = await _userRepository.GetUserByIdWithCurrentTeam(request.UserId);
 
-        if (user is null)
-        {
-            _messageHandler.AddMessage(new ErrorMessage(HttpStatusCode.NotFound, 
-                ErrorConstants.UserNotFound(request.UserId)));
-            return null;
-        }
-
-        return new UserDetailsViewModel(
-            user.Id, 
-            user.Name, 
-            user.Email, 
-            user.Careers.Select(x => 
-                new CareerViewModel(
-                    x.Id, 
-                    x.UserId, 
-                    x.ManagerName, 
-                    x.LastUpdate, 
-                    x.CurrentTeam?.Name)).ToList());
+        if (user is not null)
+            return new UserDetailsViewModel(
+                user.Id,
+                user.Name,
+                user.Email,
+                user.Careers.Select(x =>
+                    new CareerViewModel(
+                        x.Id,
+                        x.UserId,
+                        x.ManagerName,
+                        x.LastUpdate,
+                        x.CurrentTeam?.Name)).ToList());
+        
+        _messageHandler.AddMessage(new ErrorMessage(HttpStatusCode.NotFound, 
+            ErrorConstants.UserNotFound(request.UserId)));
+        return null;
     }
 }
